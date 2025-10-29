@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}მთავარი{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1>მოგესალმებით შეფასების სისტემაში !!!</h1>
+    <p class="lead mt-3">გაგვიზიარეთ თქვენი აზრი ჩვენი სერვისის შესახებ</p>
+    <a href="{{ url_for('feedback') }}" class="btn btn-primary mt-3">დატოვე შეფასება</a>
+</div>
+{% endblock %}

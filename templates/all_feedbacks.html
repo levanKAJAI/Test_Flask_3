@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}ყველა შეფასება{% endblock %}
+{% block content %}
+<h2 class="text-center mb-4">ყველა მომხმარებლის შეფასება</h2>
+
+<div class="row justify-content-center">
+    {% if feedbacks %}
+        {% for fb in feedbacks %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0 {{ 
+                'border-success bg-success-subtle' if fb.type == 'Positive' else
+                'border-warning bg-warning-subtle' if fb.type == 'Neutral' else
+                'border-danger bg-danger-subtle'
+            }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ fb.name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ fb.email }}</h6>
+                    <p class="card-text">{{ fb.message }}</p>
+                    <span class="badge bg-{{ 
+                        'success' if fb.type == 'Positive' else 
+                        'warning' if fb.type == 'Neutral' else 
+                        'danger' 
+                    }}">{{ fb.type }}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-center text-muted">ჯერ არცერთი შეფასება არ არის.</p>
+    {% endif %}
+</div>
+{% endblock %}

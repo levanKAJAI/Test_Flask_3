@@ -1,20 +1,23 @@
 from flask import Flask, render_template, redirect, url_for
 from forms import FeedbackForm
 import json
-import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecretkey'
 
-# Feedback ფაილი
 FEEDBACK_FILE = "feedbacks.json"
 
-# Helper – ფაილიდან წაკითხვა
+#  ფაილიდან წაკითხვა
 def load_feedbacks():
-    if not os.path.exists(FEEDBACK_FILE):
+    try:
+        with open(FEEDBACK_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        # თუ ფაილი არ არსებობს, ვაბრუნებთ ცარიელ სიას
         return []
-    with open(FEEDBACK_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+    except json.JSONDecodeError:
+        # თუ ფაილი დაზიანებულია ან ცარიელია
+        return []
 
 # Helper – შენახვა
 def save_feedbacks(feedbacks):
